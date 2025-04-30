@@ -20,5 +20,4 @@ jobs:
           echo "VCS_REF=${GITHUB_SHA}" >> $GITHUB_ENV
       - name: HelloWorld smoke-test
         run: |
-          docker run --rm csharpdev:${{ env.VERSION }} \
-            bash -c "dotnet run --project HelloWorld"
+            dotnet run --project HelloWorld
