@@ -1,5 +1,5 @@
 # Stage 1: Build yamlfmt
-FROM golang:1-bullseye AS go-builder
+FROM golang:1-bookworm AS go-builder
 # defined from build kit
 # DOCKER_BUILDKIT=1 docker build . -t ...
 ARG TARGETARCH
@@ -11,12 +11,10 @@ RUN go install github.com/google/yamlfmt/cmd/yamlfmt@v0.16.0 && \
     yamlfmt --version
 
 # Stage 2: C# Development Container
-FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim
+FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim
 
 # Avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
-
-# Install OS-level dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       build-essential \
