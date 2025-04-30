@@ -1,4 +1,16 @@
-# Stage 1: C# Development Container
+# Stage 1: Build yamlfmt
+FROM golang:1-bullseye AS go-builder
+# defined from build kit
+# DOCKER_BUILDKIT=1 docker build . -t ...
+ARG TARGETARCH
+
+# Install yamlfmt
+WORKDIR /yamlfmt
+RUN go install github.com/google/yamlfmt/cmd/yamlfmt@v0.16.0 && \
+    strip $(which yamlfmt) && \
+    yamlfmt --version
+
+# Stage 2: C# Development Container
 FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim
 
 # Avoid interactive prompts
@@ -27,6 +39,11 @@ RUN useradd --create-home -s /bin/bash ${USER} \
 USER ${USER}
 WORKDIR /home/${USER}
 
+# Install yamlfmt
+COPY --chown=${USER}:${USER} --from=go-builder /go/bin/yamlfmt /go/bin/yamlfmt    
+ENV PATH=${PATH}:/go/bin
+
+# install dotnet-format
 ENV PATH="/home/${USER}/.dotnet/tools:${PATH}"
 # Install the dotnet-format global tool (latest stable version)
 # Using version 5.1.250801, which is the newest release on NuGet

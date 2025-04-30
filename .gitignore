@@ -1,0 +1,53 @@
+# -------------------------
+# Build Results
+# -------------------------
+[Bb]in/
+[Oo]bj/
+
+# -------------------------
+# .NET Core / .NET 5+
+# -------------------------
+*.dll
+*.exe
+*.exe.*
+*.pdb
+*.runtimeconfig.json
+*.deps.json
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# -------------------------
+# NuGet Packages
+# -------------------------
+# The packages folder can be ignored because of `dotnet restore`
+**/packages/*
+!**/packages/build/
+# If you check in your lock files, comment the next line
+# /package.lock.json
+
+# -------------------------
+# User-specific & IDE
+# -------------------------
+.vs/               # Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+.vscode/           # VS Code workspace settings (if you don’t share them)
+.idea/             # Rider / IntelliJ
+
+# -------------------------
+# OS generated
+# -------------------------
+*.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# -------------------------
+# Logs & temp
+# -------------------------
+*.log
+*.tmp
+temp/
